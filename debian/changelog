@@ -1,3 +1,13 @@
+backuppc (3.3.1-3) unstable; urgency=medium
+
+  * Regexps fix for smbclient >= 4.2 to avoid failing SMB backups
+    And set $Conf{BackupZeroFilesIsFatal} = 0 in the default config.pl
+    Closes: #820963
+  * Workaround for SMB restores: '-d' 5 is now the default for smbclient
+  * Added some cleanup regexps for SMB backup logs
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 23 May 2016 14:11:28 +0200
+
 backuppc (3.3.1-2) unstable; urgency=medium
 
   * Perl 5.22 fix. Closes: #809626

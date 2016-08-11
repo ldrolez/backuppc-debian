@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Ludovic Drolez <ldrolez@debian.org>
 Build-Depends: debhelper (>= 5), par2, perl (>= 5.6.0), patch
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 
 Package: backuppc
 Architecture: any
