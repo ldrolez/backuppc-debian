@@ -1,0 +1,525 @@
+backuppc (3.3.0-2+deb8u1) jessie; urgency=medium
+
+  * Regexps fix for smbclient >= 4.2 to avoid failing SMB backups
+    and set $Conf{BackupZeroFilesIsFatal} = 0 in the default config.pl.
+    Workaround for SMB restores: '-d' 5 is now the default for smbclient.
+    Added some cleanup regexps for SMB backup logs.
+    Closes: #820963
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 23 May 2016 6:05:17 +0200
+
+backuppc (3.3.0-2) unstable; urgency=low
+
+  * Depends on apache2-utils
+  * removed a superfluous libtime-modules-perl. Closes: #734356
+  * Typo in log message fixed. Closes: #731087
+  * using dpkg-buildflags
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 06 Feb 2014 12:41:22 +0100
+
+backuppc (3.3.0-1) unstable; urgency=low
+
+  * New upstream release. Closes: #716824
+  * Fix Typo in kill signal name (ALRM vs ARLM). Closes: #698441
+  * Enable Apache2 (2.4) configuration by default in debconf.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 12 Sep 2013 6:13:50 +0200
+
+backuppc (3.2.1-5.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Patch BackupPC.pod for POD errors with Perl 5.18
+    pod2man has become more strict with perl 5.18. The applied patch
+    converts the non-7-bit clean character into UTF-8 and declares the
+    file's encoding as such.
+    Thanks to Dominic Hargreaves <dom@earth.li> (Closes: #719827)
+
+ -- Salvatore Bonaccorso <carnil@debian.org>  Sat, 24 Aug 2013 15:29:57 +0200
+
+backuppc (3.2.1-5.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Do not ship /etc/backuppc/config.pl as a conffile; it is handled
+    by ucf already (Closes: #706315)
+
+ -- Jonathan Wiltshire <jmw@tiger-computing.co.uk>  Fri, 07 Jun 2013 11:42:08 +0100
+
+backuppc (3.2.1-5) unstable; urgency=low
+
+  * Added libtime-modules-perl dependency. Closes: #525395
+  * Remove /var/lib/backuppc/pc/localhost if it's empty
+    Closes: #672372
+  * Added stuff to support Apache 2.4. Closes: #669765
+  * Added NICE support in /etc/default/backuppc. Closes: #639102
+  * Changed the default display date format. Closes: #663975
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 03 Jan 2013 17:27:35 +0100
+
+backuppc (3.2.1-4) unstable; urgency=low
+
+  * init.d status support. Closes: #651539
+  * fixed a qw() bug. Closes: #650522
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 20 Dec 2012 17:59:28 +0100
+
+backuppc (3.2.1-3) unstable; urgency=high
+
+  * urgency set to high because of a security fix
+  * fixed the XSS in CGI/RestoreFile.pm. CVE-2011-5081. Closes: #673331
+  * added the Polish debconf translation. Closes: #673698
+  * updated Danish translation. Closes: #659456
+  * added autofs in init.d's Should-Start/Should-Stop. Closes: #662908
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 31 May 2012 11:51:16 +0200
+
+backuppc (3.2.1-2) unstable; urgency=high
+
+  * Really fix CVE-2011-3361. Closes: #646865
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 02 Nov 2011 11:03:38 +0100
+
+backuppc (3.2.1-1) unstable; urgency=high
+
+  * New upstream release. Closes: #641450
+  * urgency set to high because of a security fix
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 13 Sep 2011 20:38:00 +0200
+
+backuppc (3.2.0-4.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Use inetutils-ping as an alternative to iputils-ping. Closes: #630777
+
+ -- Bernd Zeimetz <bzed@debian.org>  Tue, 28 Jun 2011 22:31:10 +0200
+
+backuppc (3.2.0-4) unstable; urgency=low
+
+  * debian/setuidwrapper.c: New.
+  * debian/rules: Build setuidwrapper as cgi-bin/index.cgi; install real
+    index.cgi as lib/realindex.cgi.  Closes: #581950.
+  * control: Remove depends on perl-suid.  Change to Architecture any, add
+    ${shlibs:Depends}.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Sat, 07 May 2011 10:11:56 -0500
+
+backuppc (3.2.0-3) unstable; urgency=low
+
+  * Shell characters are now properly escaped. Closes: #516626
+  * Added in README.Debian instructions for IPv6 hosts. Closes: #594091
+  * Removed /etc/backuppc/htgroup. Closes: #594692
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 10 Jan 2011 12:29:07 +0100
+
+backuppc (3.2.0-2) unstable; urgency=low
+
+  * re-added the xfs/rfs pool size patch. Closes: #600654
+  * updated the pt_BR debconf translation. Closes: #607405
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Sun, 02 Jan 2011 19:33:07 +0100
+
+backuppc (3.2.0-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Add depends on libwww-perl (Closes: #602787)
+
+ -- Patrick Winnertz <winnie@debian.org>  Fri, 26 Nov 2010 14:37:21 +0100
+
+backuppc (3.2.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Wed, 06 Oct 2010 20:57:45 +0200
+
+backuppc (3.1.0-10) unstable; urgency=low
+
+  * Dependenct added: libtime-modules-perl. Closes: #570843
+  * Removed useless logging. Closes: #558431
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 12 Apr 2010 20:30:28 +0200
+
+backuppc (3.1.0-9) unstable; urgency=low
+
+  * chown/chmod only the needed dirs. Closes: #531948
+  * added 'Allow from all' in apache conf. Closes: #538976
+  * depends on samba-common-bin. Closes: #546660
+  * depends on default-mta. Closes: #539796
+  * added the xfs/rfs pool size patch. Closes: #556729 #544852
+  * specified a font name for graphs. Closes: #544853
+  * updated debconf translations. Closes: #526699
+  * added a nice value in the init. Closes: #438614
+  * only keep apache2 auto-config. Closes: #528965
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 24 Nov 2009 10:34:10 +0100
+
+backuppc (3.1.0-8) unstable; urgency=high
+
+  * Really fix the alias bug. Closes: #542218
+  * Small init.d file fix
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Fri, 09 Oct 2009 20:58:32 +0200
+
+backuppc (3.1.0-7) unstable; urgency=high
+
+  * Disable the modification of the alias for normal users. Closes: #542218
+  * Recommends: libio-dirent-perl. Closes: #518554
+  * manage config.pl with ucf. Closes: #483573
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 01 Sep 2009 14:43:36 +0200
+
+backuppc (3.1.0-6) unstable; urgency=high
+
+  * Fix the permissions of the CGI script. Closes: #518518
+  * Fix the permissions of htpasswd/htgroup files
+  * Enabled MD5 hash for htpasswd by default
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 31 Mar 2009 11:30:48 +0200
+
+backuppc (3.1.0-5) unstable; urgency=low
+
+  * MTA dependency added. Closes: #458961
+  * iputils-ping dependency added. Closes: #516147
+  * remove the /etc/$webserver/conf.d/backuppc link if present. Closes: #516159
+  * Small debian/rules fix. Closes: #488659
+  * Apache1 dep removed. Closes: #488656
+  * /etc/backuppc/localconfig.pl can be used for customizations to config.pl. 
+    Closes: #375998
+  * Updated debconf translations. Closes: #513665, #503741
+  * Enable basic auth apache2 modules
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 03 Mar 2009 21:29:55 +0100
+
+backuppc (3.1.0-4) unstable; urgency=medium
+
+  * Failing SMB backups: removed the '-N' option for smbclient because 
+    of an undocumented change in samba. See bug #501057
+  * Updated Sweedish debconf file. Closes: #491937
+  * Added Russian debconf file. Closes: #501756
+  * Added Finnish debconf file. Closes: #501934
+  * Added Ukrainian debconf file. Closes: #501977
+  * Added Basque debconf file. Closes: #502076
+  * Added Italian debconf file. Closes: #502463
+  * Changed the doc-base section to `File Management'
+  * Documented some known bugs with WAs.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 07 Oct 2008 20:10:20 +0200
+
+backuppc (3.1.0-3) unstable; urgency=low
+
+  * Added backuppc to /etc/aliases. Closes: #438331
+  * Moved the pool size graphs to the bottom. Closes: #476659
+  * Watch file fixed
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue,  8 Apr 2008 12:26:57 +0200
+
+backuppc (3.1.0-2) unstable; urgency=low
+
+  * patched backuppc to show a nice rrdtool graph of the pool size.
+  * added a conflicts: libfile-rsyncp-perl (< 0.68). Closes: #431979
+  * removed the forgotten wwwconfig-common from dependencies
+  * Japanese debconf template updated. Closes: #463646
+  * Added the SSL option in apache.conf. Closes: #437685
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 21 Feb 2008 20:49:07 +0100
+
+backuppc (3.1.0-1) unstable; urgency=low
+
+  * New upstream release. Closes: #437451
+  * Moved MTAs, rsync and openssh to the recommends line. Smbclient is still needed.
+    Closes: #454795, #441337
+  * symlink /etc/backuppc/pc to /etc/backuppc to follow the doc. Closes: #436793
+  * moved the creation of /var/lib/backuppc/pc/localhost to the postinst. Closes: #451922
+  * Added the PT debconf translation. Closes: #434291
+  * Unfuzzy config.pl.diff. Closes: #452673
+  * Support /var/run on tmpfs and use LSB logging. Closes: #452672
+  * Properly remove /etc/apache*/conf.d/backuppc.conf. Closes: #452677
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Fri,  7 Dec 2007 10:54:44 +0100
+
+backuppc (3.0.0-4) unstable; urgency=high
+
+  * Clear the remaining password in config.dat. Closes: #436681
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 27 Aug 2007 18:28:25 +0200
+
+backuppc (3.0.0-3) unstable; urgency=medium
+
+  * Added bzip2 in the dependencies. Closes: #420030
+  * Added a LSB section in the init script.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Sun, 20 May 2007 16:38:13 +0200
+
+backuppc (3.0.0-2.1) unstable; urgency=high
+
+  * Non-maintainer upload during BSP.
+  * Fix non-conditional use of debconf during purge (Closes: #416650).
+  * Updated German translation, thanks Erik Schanze (Closes: #412020).
+  * Updated Czech translation, thanks Martin Sin (Closes: #412729).
+
+ -- Luk Claes <luk@debian.org>  Thu, 17 May 2007 00:37:56 +0200
+
+backuppc (3.0.0-2) unstable; urgency=low
+
+  * Bzip2 path changed. Closes: #410858
+  * Refuse to run the daemon if an old config.pl file is detected.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Wed, 14 Feb 2007 8:27:12 +0100
+
+backuppc (3.0.0-1) unstable; urgency=low
+
+  * New upstream release. Closes: #369684, #377084, #406681, #405822, #408916
+  * /etc/backuppc is now owned by user backuppc, so that the CGI can modify the
+    configuration.
+  * README.Debian updated. Closes: #407467
+  * Updated README.Debian with information about the backuppc account, and
+    about installation with Apache 2.2.x. Closes: #390798
+  * Do not use wwwconfig-common anymore. Closes: #304901, #249010
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon,  5 Feb 2007 10:12:51 +0100
+
+backuppc (2.1.2-5) unstable; urgency=medium
+
+  * upstream patch 2.1.2pl1 applied. Closes: #369425, #355112
+  * added -D to rsync flags. Closes: #365437, #358319
+  * localhost incremental backups fixed. Closes: #369465
+  * suggests openssh-client or ssh-client. Closes: #369464
+  * paths in the documentation fixed. Closes: #369428
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Wed,  7 Jun 2006 10:00:31 +0200
+
+backuppc (2.1.2-4) unstable; urgency=low
+
+  * Added BackupPC-2.1.2pl0.diff. Closes: #347930
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 23 Jan 2006 21:43:30 +0100
+
+backuppc (2.1.2-3) unstable; urgency=low
+
+  * Added Spanish and Swedish debconf translations. Closes: #333877, #330940
+  * Avoid the creation of etc/config.pl.orig
+  * DH_COMPAT=4
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Sun,  8 Jan 2006 23:52:56 +0100
+
+backuppc (2.1.2-2) unstable; urgency=low
+
+  * Added misc:Depends in control file. Closes: #331756.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Sun, 13 Nov 2005 13:40:15 +0100
+
+backuppc (2.1.2-1) unstable; urgency=low
+
+  * New upstream release. Closes: #327125, #317714.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu,  8 Sep 2005 18:25:22 +0200
+
+backuppc (2.1.1-4) unstable; urgency=medium
+
+  * Fixed an important bug in BackupPC_tarCreate which can cause archives to
+    be corrupted.
+  * Put pid file in /var/run/backuppc/BackupPC.pid, Closes: #317748
+  * Check if ssh and par2 exists. Closes: #319246
+  * Now depends on a MTA.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 22 Aug 2005 18:55:15 +0200
+
+backuppc (2.1.1-3) unstable; urgency=low
+
+  * Typo in french translation removed. Closes: #305475
+  * Added Vietnamese debconf translation. Closes: #309327
+  * Added Czech debconf translation. Closes: #304877
+  * Added instructions in README.Debian on installing the CGI under 
+    suexec+apache2 (contributed by William McKee). Closes: #309700
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 28 Jun 2005 13:02:06 +0200
+
+backuppc (2.1.1-2) unstable; urgency=low
+
+  * Added a patch to have backuppc detach correclty. Closes: #301057
+  * Hostname fix. Closes: #301360
+  * Small CGI fix: the host config file link was not present.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Fri,  1 Apr 2005 22:07:03 +0200
+
+backuppc (2.1.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Do not modify config.pl in the postinst. 
+    Thanks to Peter Palfrader for the patch. Closes: #301076.
+  * Moved the 'rm -rf /etc/backuppc'. Closes: #301084.
+  * Check that backuppc.config is not run 2 times before generating
+    a random password. Closes: #301087.
+  * Added /bin/sh as shell for the backuppc user. Closes: #299852.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Fri, 18 Mar 2005 20:25:47 +0100
+
+backuppc (2.1.0-10) unstable; urgency=medium
+
+  * Explicitly run /usr/bin/env : do not rely on the PATH.
+    Closes: #297879.
+    Priority set to medium since it could break existing setups.
+  * Removed the debconf templates which should not be translated.
+  * Added pt_BR debconf translation. Closes: #297052
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 28 Feb 2005 18:56:02 +0100
+
+backuppc (2.1.0-9) unstable; urgency=low
+
+  * A random password is generated for backuppc http user. Closes: #293848
+  * $Conf{CgiURL} corrected in configure.pl. Closes: #287281
+  * Added 'env LC_ALL=C' before tar in config.pl to prevent locale problems
+  * added the tarssh-sudo.pl example configuration file.
+  * postrm script fixed. Closes: #293847
+  * config comment fixed. Closes: #279041
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 28 Dec 2004 15:38:06 +0100
+
+backuppc (2.1.0-8) unstable; urgency=low
+
+  * Postinst script fixed. Closes: Bug#283755
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Sat,  4 Dec 2004 01:54:02 +0100
+
+backuppc (2.1.0-7) unstable; urgency=low
+
+  * Depends on libfile-rsyncp-perl >= 0.50. Closes: #279649
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Fri,  5 Nov 2004 14:03:38 +0100
+
+backuppc (2.1.0-6) unstable; urgency=medium
+
+  * Moved 'db_stop' after 'db_purge'. Closes: #276306
+  * Urgency=medium because this important bug was fixed.
+  * Po-debconf translations updated. Closes: #270786, #271100, #274656
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 21 Oct 2004 23:43:18 +0200
+
+backuppc (2.1.0-5) unstable; urgency=low
+
+  * Added the pl1 patch. Closes: #270230
+  * Postint modified to use a2enmod. Closes: #269434
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu,  9 Sep 2004 08:56:10 +0200
+
+backuppc (2.1.0-4) unstable; urgency=medium
+
+  * Backuppc now asks if it can modify the apache config. Closes: #268068
+  * Urgency=medium because an RC bug has been fixed.
+  * fr.po updated.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 31 Aug 2004 20:19:55 +0200
+
+backuppc (2.1.0-3) unstable; urgency=medium
+
+  * Added a patch to make the archive feature working. Closes: Bug#263409
+  * Urgency=medium because this upload fixes a new feature of backuppc 2.1
+  * User backuppc now created as a system user since it's mainly used
+    to run the daemon. Closes: Bug#255498
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu,  5 Aug 2004 20:53:37 +0200
+
+backuppc (2.1.0-2) unstable; urgency=low
+
+  * Removed a slash in the apache alias. Closes: Bug#261108
+  * Removed a few checks in the configure script. Closes: Bug#261041
+  * added a 'dpkg-statoverride --remove' in the postrm script
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Fri, 23 Jul 2004 22:49:11 +0200
+
+backuppc (2.1.0-1) unstable; urgency=low
+
+  * New upstream release. Closes: #255482
+  * Added in README.Debian what additional packages you need for
+    rsync based backups. Closes: #257518
+  * suggests exim4. Closes: #255338  
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 15 Jul 2004 09:30:12 +0200
+
+backuppc (2.0.2-6) unstable; urgency=low
+
+  * German debconf translation added. Closes: Bug#250573
+  * Dependencies: added apache-ssl | apache-perl
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu,  3 Jun 2004 09:36:22 +0200
+
+backuppc (2.0.2-5) unstable; urgency=low
+
+  * XFerLog filter patch applied. Closes: Bug#248604
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Wed, 12 May 2004 20:05:55 +0200
+
+backuppc (2.0.2-4) unstable; urgency=low
+
+  * solved the doc substitution problem. Closes: Bug#237322
+  * nl.po debconf translation added. Closes: Bug#241308
+  * quiet ssh flag added in $Conf{RsyncClientCmd}. Closes: Bug#242621
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Sat, 10 Apr 2004 00:08:24 +0200
+
+backuppc (2.0.2-3) unstable; urgency=low
+
+  * apache2 support. Closes: Bug#214548.
+  * Japanese po-debconf template translation added. Closes: Bug#227229
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 15 Mar 2004 23:11:45 +0100
+
+backuppc (2.0.2-2) unstable; urgency=low
+
+  * Docbase path fixed. Closes: Bug#224250
+  * More copyright info
+  * Added a mysql backup file example.
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Wed, 17 Dec 2003 20:02:35 +0100
+
+backuppc (2.0.2-1) unstable; urgency=low
+
+  * New upstream release
+  * debian/watch added
+  * chown syntax fixed. Closes: #211987
+  * chown/chmod called only on the 1st install. Closes: #214526
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 16 Oct 2003 21:56:25 +0200
+
+backuppc (2.0.0-5) unstable; urgency=low
+
+  * Added gettext based debconf templates. Closes: Bug#205787
+  * Added fr.po debconf file. Closes: Bug#206592
+  * Added some basic examples
+  * Fixed the default 'hosts' file: 'localhost' is now owned by 'backuppc'
+  * Fixed BackupPC_Admin to be able to display config files in /etc/backuppc
+  * Updated README.debian file. Closes: #203234, #203272
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 23 Aug 2003 21:34:44 +0200
+
+backuppc (2.0.0-4) unstable; urgency=low
+
+  * set Architecture to all
+  * depends: samba-tng-common or samba-common
+  * Menu file added. Closes: #201148
+  * improved description. Closes: #199170
+  
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 26 Jun 2003 21:21:21 +0200
+
+backuppc (2.0.0-3) unstable; urgency=low
+
+  * added --gecos "" to the adduser line on the postinst. Closes: #198814
+  * init script small fix
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Thu, 26 Jun 2003 20:57:53 +0200
+
+backuppc (2.0.0-2) unstable; urgency=low
+
+  * added dependencies: libdigest-md5-perl
+  * packaged libfile-rsyncp-perl: you can now use rsync for backups
+  * images path fixed
+  * documentation path fixed in cgi script
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Wed, 18 Jun 2003 22:08:19 +0200
+
+backuppc (2.0.0-1) unstable; urgency=low
+
+  * Initial Release. Closes: Bug#158874.
+  * modified configure.pl for non-interactive install
+  * modified perl scripts for having main config files in /etc/backuppc
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 16 Jun 2003 10:43:48 +0200
+

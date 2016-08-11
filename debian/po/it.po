@@ -1,0 +1,78 @@
+# ITALIAN TRANSLATION OF BACKUPPC'S.PO-DEBCONF FILE
+# Copyright (C) 2008 THE BACKUPPS'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the backuppc package.
+#
+# Vincenzo Campanella <vinz65@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: it\n"
+"Report-Msgid-Bugs-To: backuppc@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-20 08:53+0200\n"
+"PO-Revision-Date: 2008-10-12 13:10+0200\n"
+"Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid "Web administration default user created"
+msgstr "Creato utente predefinito per l'amministrazione web"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"BackupPC can be managed through its web interface:\n"
+" http://${site}/backuppc/"
+msgstr ""
+"BackupPC può essere gestito attraverso la sua interfaccia web:\n"
+" http://${site}/backuppc/"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"For that purpose, a web user named 'backuppc' with '${pass}' as password has "
+"been created. You can change this password by running 'htpasswd /etc/"
+"backuppc/htpasswd backuppc'."
+msgstr ""
+"A tale scopo è stato creato un utente web, \"backuppc\", con \"${pass}\" "
+"come password. È possibile modificare questa password eseguendo \"htpasswd /"
+"etc/backuppc/htpasswd backuppc\"."
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid "Which web server would you like to reconfigure automatically:"
+msgstr "Quale server web riconfigurare automaticamente:"
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid ""
+"BackupPC supports any web server with CGI enabled, but this automatic "
+"configuration process only supports Apache."
+msgstr ""
+"BackupPC supporta qualsiasi server web con CGI abilitata, ma questo processo "
+"di configurazione automatica supporta solo Apache."
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid "Do you want to restart the webservers now if needed?"
+msgstr "Riavviare i server web ora se necessario?"
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid ""
+"Remember that in order to activate the new configuration the webservers have "
+"to be restarted."
+msgstr ""
+"Ricordare che, per attivare la nuova configurazione, i server web devono "
+"essere riavviati."

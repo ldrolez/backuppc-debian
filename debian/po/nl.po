@@ -1,0 +1,110 @@
+# translation of backuppc_3.1.0-3.1.po to Dutch
+# This file is distributed under the same license as the backuppc package.
+# Please see debian/copyright.
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+# Luk Claes <luk.claes@ugent.be>, 2004.
+# Paul Gevers <paul@climbing.nl>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: backuppc 2.0.2-2\n"
+"Report-Msgid-Bugs-To: backuppc@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-20 08:53+0200\n"
+"PO-Revision-Date: 2008-10-16 20:59-0600\n"
+"Last-Translator: Paul Gevers <paul@climbing.nl>\n"
+"Language-Team: Debian l10n Dutch <debian-l10n-dutch@lists.debian.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid "Web administration default user created"
+msgstr "Standaard gebruiker voor webbeheer gecreëerd"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"BackupPC can be managed through its web interface:\n"
+" http://${site}/backuppc/"
+msgstr ""
+"BackupPC kan worden beheerd via de webinterface:\n"
+" http://${site}/backuppc/"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"For that purpose, a web user named 'backuppc' with '${pass}' as password has "
+"been created. You can change this password by running 'htpasswd /etc/"
+"backuppc/htpasswd backuppc'."
+msgstr ""
+"Voor dit doel is er een webgebruiker 'backuppc' gecreëerd met '${pass}' als "
+"wachtwoord. U kunt dit wachtwoord wijzigen met het commando 'htpasswd /etc/"
+"backuppc/htpasswd backuppc'."
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid "Which web server would you like to reconfigure automatically:"
+msgstr "Welke webserver wilt u automatisch herconfigureren?"
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid ""
+"BackupPC supports any web server with CGI enabled, but this automatic "
+"configuration process only supports Apache."
+msgstr ""
+"BackupPC ondersteunt iedere webserver die CGI aan heeft staan. Echter, "
+"alleen Apache wordt ondersteund door dit automatische configuratieproces."
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid "Do you want to restart the webservers now if needed?"
+msgstr "Wilt u dat de webservers nu worden herstart, als dat nodig is?"
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid ""
+"Remember that in order to activate the new configuration the webservers have "
+"to be restarted."
+msgstr ""
+"Om de nieuwe configuratie te activeren is het nodig dat de webservers "
+"herstart worden."
+
+#~ msgid "Add aliases for /backuppc/ to your apache config files ?"
+#~ msgstr ""
+#~ "Aliases voor /backuppc/ toevoegen aan uw apache-configuratiebestanden?"
+
+#~ msgid ""
+#~ "In order to have the Backuppc web administration interface working, I "
+#~ "need to add an include line in your apache configuration, which will set-"
+#~ "up  a few aliases."
+#~ msgstr ""
+#~ "Om de Backuppc-webbeheer-interface te laten werken, moet er een include-"
+#~ "regel worden toegevoegd in uw apache-configuratie die enkele aliases zal "
+#~ "opzetten."
+
+#~ msgid ""
+#~ "If you do not trust automatically modified configurations, you can add "
+#~ "the  /etc/backuppc/apache.conf include file later yourself."
+#~ msgstr ""
+#~ "Als u dit niet vertrouwt, kunt u het /etc/backuppc/apache.conf-include-"
+#~ "bestand later zelf toevoegen."

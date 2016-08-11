@@ -1,0 +1,77 @@
+# Danish translation backuppc.
+# Copyright (C) 2012 backuppc & nedenstående oversættere.
+# This file is distributed under the same license as the backuppc package.
+# Joe Hansen (joedalton2@yahoo.dk), 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: backuppc\n"
+"Report-Msgid-Bugs-To: backuppc@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-20 08:53+0200\n"
+"PO-Revision-Date: 2012-02-11 12:42+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid "Web administration default user created"
+msgstr "Standardbruger for internetadministration oprettet"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"BackupPC can be managed through its web interface:\n"
+" http://${site}/backuppc/"
+msgstr ""
+"BackupPC kan håndteres via sin internetgrænseflade:\n"
+" http://${site}/backuppc/"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"For that purpose, a web user named 'backuppc' with '${pass}' as password has "
+"been created. You can change this password by running 'htpasswd /etc/"
+"backuppc/htpasswd backuppc'."
+msgstr ""
+"For dette formål er en internetbruger navngivet »backuppc« med »${pass}« som "
+"adgangskode blevet oprettet. Du kan ændre denne adgangskode ved at køre "
+"»htpasswd /etc/backuppc/htpasswd backuppc«."
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid "Which web server would you like to reconfigure automatically:"
+msgstr "Hvilken internetserver ønsker du at rekonfigurere automatisk:"
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid ""
+"BackupPC supports any web server with CGI enabled, but this automatic "
+"configuration process only supports Apache."
+msgstr ""
+"BackupPC understøtter alle internetservere med CGI aktiveret, men denne "
+"automatiske konfigurationsproces understøtter kun Apache."
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid "Do you want to restart the webservers now if needed?"
+msgstr "Ønsker du at genstarte internetserverne nu hvis krævet?"
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid ""
+"Remember that in order to activate the new configuration the webservers have "
+"to be restarted."
+msgstr ""
+"Husk at for at aktivere den nye konfiguration så skal internetserverne "
+"genstartes."

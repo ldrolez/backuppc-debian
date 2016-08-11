@@ -1,0 +1,176 @@
+#!/bin/bash
+# postinst script for backuppc
+#
+# see: dh_installdeb(1)
+
+#set -e
+#set -x
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+#
+# quoting from the policy:
+#     Any necessary prompting should almost always be confined to the
+#     post-installation script, and should be protected with a conditional
+#     so that unnecessary prompting doesn't happen if a package's
+#     installation fails and the `postinst' is called with `abort-upgrade',
+#     `abort-remove' or `abort-deconfigure'.
+
+. /usr/share/debconf/confmodule
+db_version 2.0
+
+case "$1" in
+    configure)
+    
+    # TODO: I should detect if par2, bzip2 ... are really installed
+    # and modify config.pl accordingly.
+    
+    db_get backuppc/reconfigure-webserver
+    webservers="$RET"
+    db_get backuppc/restart-webserver
+    webservers_rst="$RET"
+    inc="/etc/backuppc/apache.conf"
+    
+    for webserver in $webservers ; do
+	webserver=${webserver%,}
+	test -x /usr/sbin/$webserver || continue
+	
+	case "$webserver" in                                    
+        apache|apache-perl|apache-ssl|apache2)
+	    # remove wwwconfig-common stuff
+	    if grep -qs "^Include $inc" /etc/$webserver/httpd.conf; then
+		mv -f /etc/$webserver/httpd.conf /etc/$webserver/httpd.conf.old.backuppc
+		grep -v "^Include $inc" /etc/$webserver/httpd.conf.old.backuppc \
+			> /etc/$webserver/httpd.conf
+	    fi
+	    # add new links
+	    
+	    # Apache 2.4 
+	    if [ -d /etc/$webserver/conf-available -a ! -f /etc/$webserver/conf-available/backuppc.conf -a ! -h /etc/$webserver/conf-available/backuppc.conf ]; then
+                ln -s /etc/backuppc/apache.conf /etc/$webserver/conf-available/backuppc.conf
+                [ -f /etc/$webserver/conf.d/backuppc.conf ] && rm /etc/$webserver/conf.d/backuppc.conf
+
+                if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
+                    . /usr/share/apache2/apache2-maintscript-helper
+            	    apache2_invoke enconf backuppc.conf
+                fi
+            fi
+
+	    # Apache < 2.4
+	    newfile=false
+            if [ -d /etc/$webserver/conf.d -a ! -f /etc/$webserver/conf.d/backuppc.conf -a ! -h /etc/$webserver/conf.d/backuppc.conf ]; then
+                ln -s /etc/backuppc/apache.conf /etc/$webserver/conf.d/backuppc.conf
+                [ -f /etc/$webserver/conf.d/backuppc ] && rm /etc/$webserver/conf.d/backuppc
+		if [ "$webservers_rst" = "true" ]; then
+		    # restart
+    		    if [ -x /usr/sbin/invoke-rc.d ]; then
+        		    invoke-rc.d $webserver reload
+    		    else
+        		    /etc/init.d/$webserver reload
+    		    fi
+		fi
+            fi
+	    ;;
+	esac
+    done
+
+    # creating backuppc group if he isn't already there
+    if ! getent group backuppc >/dev/null; then
+	addgroup --system backuppc >/dev/null
+    fi
+
+    # creating backuppc user if he isn't already there
+    if ! getent passwd backuppc >/dev/null; then
+	adduser --system --gecos "BackupPC" --ingroup backuppc \
+	    --shell /bin/sh --home /var/lib/backuppc backuppc >/dev/null
+	    
+        # add backuppc to /etc/aliases
+        if [ -f /etc/aliases ] || [ -L /etc/aliases ]; then
+	    if ! grep -qi "^backuppc[[:space:]]*:" /etc/aliases; then
+        	echo "backuppc: root" >> /etc/aliases
+	        test -x "$(command -v newaliases)" && newaliases || :
+	    fi
+	fi
+    fi
+    
+    #usermod -c "BackupPC Daemon" backuppc
+    
+    # chown some files only on the 1st install
+    if [ -z "$2" ]; then 
+    	mkdir /var/lib/backuppc/pc/localhost/
+	chown backuppc:backuppc /var/lib/backuppc /var/lib/backuppc/* /var/lib/backuppc/pc/* /var/lib/backuppc/log/*
+	chmod 750 /var/lib/backuppc /var/lib/backuppc/* /var/lib/backuppc/pc/*
+    fi
+
+    OVERRIDDEN=`dpkg-statoverride --list /usr/lib/backuppc/cgi-bin/index.cgi || true`
+    # Force the perms to 4750 if 4755 was found
+    echo "$OVERRIDDEN" | grep -q 4755 && OVERRIDDEN=""
+    [ "${OVERRIDDEN}" = "" ] && dpkg-statoverride --force --update --add backuppc www-data 4750 /usr/lib/backuppc/cgi-bin/index.cgi
+
+    if [ ! -f /etc/backuppc/htpasswd ]; then
+	touch /etc/backuppc/htpasswd
+	db_get backuppc/tmppass
+	if [ -f /usr/bin/htpasswd ]; then
+	    htpasswd -bm /etc/backuppc/htpasswd backuppc $RET
+	else 
+	    htpasswd2 -bm /etc/backuppc/htpasswd backuppc $RET
+	fi
+    fi
+    db_reset backuppc/tmppass
+    db_subst "backuppc/configuration-note" "pass" ""
+    
+    if [ -x /usr/sbin/a2enmod ]; then
+	a2enmod auth_basic
+	a2enmod authz_groupfile
+	a2enmod authn_file
+	a2enmod authz_user
+	a2enmod cgi
+    fi
+    
+    # create a symlink to have the same directories as in the doc
+    cd /etc/backuppc
+    [ ! -e pc ] && ln -s /etc/backuppc pc
+    
+    # ucf stuff
+    ucf --debconf-ok --three-way /usr/share/backuppc/conf/config.pl /etc/backuppc/config.pl
+
+    # remove conffile
+    #dpkg-maintscript-helper rm_conffile /etc/backuppc/config.pl 3.3.0-1 backuppc -- "$@";
+    
+    
+    # change the rights of /etc/backuppc so that the CGI can modify the conf.
+    chown -R backuppc:www-data /etc/backuppc
+
+    # fix the perms of the backuppc password files
+    chmod 640 /etc/backuppc/htpasswd
+    
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+
+    ;;
+
+    *)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 1
+    ;;
+esac
+
+db_stop
+
+# dh_installdeb will replace this with shell code automatically
+# generated by other debhelper scripts.
+
+#DEBHELPER#
+
+exit 0
+
+

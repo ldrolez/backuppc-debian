@@ -1,0 +1,36 @@
+Source: backuppc
+Section: utils
+Priority: optional
+Maintainer: Ludovic Drolez <ldrolez@debian.org>
+Build-Depends: debhelper (>= 5), par2, perl (>= 5.6.0), patch
+Standards-Version: 3.9.5
+
+Package: backuppc
+Architecture: any
+Depends: ${shlibs:Depends}, ${perl:Depends}, libdigest-md5-perl, libcompress-zlib-perl, libarchive-zip-perl, tar (>> 1.13), adduser (>=3.9), dpkg (>= 1.15.7.2), apache2 | httpd, ${misc:Depends}, smbclient, samba-common-bin, bzip2, default-mta | exim4 | mail-transport-agent, iputils-ping | inetutils-ping, ucf, libtime-modules-perl, libwww-perl, apache2-utils
+Recommends: rsync, libfile-rsyncp-perl (>= 0.68), openssh-client | ssh-client, rrdtool, libio-dirent-perl
+Suggests: w3m | www-browser, par2
+Conflicts: libfile-rsyncp-perl (<< 0.68)
+Description: high-performance, enterprise-grade system for backing up PCs
+ BackupPC is disk based and not tape based. This particularity allows 
+ features not found in any other backup solution:
+  * Clever pooling scheme minimizes disk storage and disk I/O. 
+    Identical files across multiple backups of the same or different PC are 
+    stored only once resulting in substantial savings in disk storage and disk 
+    writes. Also known as "data deduplication".
+  * Optional compression provides additional reductions in storage.
+    CPU impact of compression is low since only new files (those not already
+    in the pool) need to be compressed.
+  * A powerful http/cgi user interface allows administrators to view log files, 
+    configuration, current status and allows users to initiate and cancel 
+    backups and browse and restore files from backups very quickly.
+  * No client-side software is needed. On WinXX the smb protocol is used.
+    On Linux or Unix clients, rsync or tar (over ssh/rsh/nfs) can be used
+  * Flexible restore options. Single files can be downloaded from any backup 
+    directly from the CGI interface. Zip or Tar archives for selected files 
+    or directories can also be downloaded from the CGI interface.
+  * BackupPC supports mobile environments where laptops are only intermittently 
+    connected to the network and have dynamic IP addresses (DHCP). 
+  * Flexible configuration parameters allow multiple backups to be performed 
+    in parallel.
+  * and more to discover in the manual...  

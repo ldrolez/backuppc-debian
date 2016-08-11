@@ -1,0 +1,76 @@
+--- config.pl	2016-05-25 19:39:59.558740903 +0200
++++ debian/backuppc/etc/backuppc/config.pl	2016-01-06 11:49:00.000000000 +0100
+@@ -41,7 +41,10 @@
+ #
+ # Host name on which the BackupPC server is running.
+ #
+-$Conf{ServerHost} = 'XXXXXX';
++$ENV{'PATH'} = '/bin:/usr/bin';
++delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
++$Conf{ServerHost} = `hostname`;
++chomp($Conf{ServerHost});
+ 
+ #
+ # TCP port number on which the BackupPC server listens for and accepts
+@@ -224,7 +227,7 @@
+ # Full path to various commands for archiving
+ #
+ $Conf{SplitPath} = '/usr/bin/split';
+-$Conf{ParPath}   = '/usr/bin/par2';
++$Conf{ParPath}   = '/usr/bin/par2' if -x '/usr/bin/par2';
+ $Conf{CatPath}   = '/bin/cat';
+ $Conf{GzipPath}  = '/bin/gzip';
+ $Conf{Bzip2Path} = '/bin/bzip2';
+@@ -836,7 +839,7 @@
+ # backed up.  If you have shares that might be empty (and therefore an
+ # empty backup is valid) you should set this flag to 0.
+ #
+-$Conf{BackupZeroFilesIsFatal} = 1;
++$Conf{BackupZeroFilesIsFatal} = 0;
+ 
+ ###########################################################################
+ # How to backup a client
+@@ -1021,7 +1021,7 @@
+ # redirection and pipes; put that in a script if you need it.
+ #
+ $Conf{SmbClientRestoreCmd} = '$smbClientPath \\\\$host\\$shareName'
+-            . ' $I_option -U $userName -E -d 1'
++            . ' $I_option -U $userName -E -d 5'
+             . ' -c tarmode\\ full -Tx -';
+
+ ###########################################################################
+@@ -1572,7 +1575,7 @@
+ # Full path for ssh. Security caution: normal users should not
+ # allowed to write to this file or directory.
+ #
+-$Conf{SshPath} = '/usr/bin/ssh';
++$Conf{SshPath} = '/usr/bin/ssh' if -x '/usr/bin/ssh';
+ 
+ #
+ # Full path for nmblookup. Security caution: normal users should not
+@@ -2028,13 +2031,13 @@
+ #    $Conf{CgiAdminUsers}     = 'craig celia';
+ #    --> administrative users are only craig and celia'.
+ #
+-$Conf{CgiAdminUserGroup} = '';
+-$Conf{CgiAdminUsers}     = '';
++$Conf{CgiAdminUserGroup} = 'backuppc';
++$Conf{CgiAdminUsers}     = 'backuppc';
+ 
+ #
+ # URL of the BackupPC_Admin CGI script.  Used for email messages.
+ #
+-$Conf{CgiURL} = 'http://XXXXXX/backuppc/index.cgi';
++$Conf{CgiURL} = 'http://'.$Conf{ServerHost}.'/backuppc/index.cgi';
+ 
+ #   
+ # Language to use.  See lib/BackupPC/Lang for the list of supported
+@@ -2076,7 +2079,7 @@
+ # dates (MM/DD), a value of 2 uses full YYYY-MM-DD format, and zero
+ # for international dates (DD/MM).
+ #
+-$Conf{CgiDateFormatMMDD} = 1;
++$Conf{CgiDateFormatMMDD} = 2;
+ 
+ #
+ # If set, the complete list of hosts appears in the left navigation

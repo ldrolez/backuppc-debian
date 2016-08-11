@@ -1,0 +1,4 @@
+?package(backuppc):needs="X11" section="Applications/File Management"\
+ title="View backuppc status" \
+ command="www-browser http://localhost/backuppc/"
+

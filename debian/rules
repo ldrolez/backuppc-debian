@@ -1,0 +1,115 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -g
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	# Add here commands to configure the package.
+
+	touch configure-stamp
+
+build-arch: build
+build-indep: build
+
+build: build-stamp
+
+build-stamp: configure-stamp 
+	dh_testdir
+
+	# Add here commands to compile the package.
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) debian/setuidwrapper.c -o index.cgi
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp index.cgi
+
+	# Add here commands to clean up after the build process.
+	rm -f init.d/*-backuppc*
+	rm -f backuppc.8*
+
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	# Add here commands to install the package into debian/backuppc.
+	chmod 755 ./configure.pl
+	./configure.pl --batch --no-fhs --hostname XXXXXX --uid-ignore \
+	    --install-dir /usr/share/backuppc --dest-dir $(CURDIR)/debian/backuppc/ \
+	    --data-dir /var/lib/backuppc --cgi-dir /usr/share/backuppc/cgi-bin \
+	    --html-dir /usr/share/backuppc/image --html-dir-url /backuppc/image \
+	    --bin-path perl=/usr/bin/perl --bin-path tar=/bin/tar \
+	    --bin-path smbclient=/usr/bin/smbclient --bin-path nmblookup=/usr/bin/nmblookup \
+	    --bin-path rsync=/usr/bin/rsync --bin-path ping=/bin/ping \
+	    --bin-path df=/bin/df --bin-path ssh=/usr/bin/ssh \
+	    --bin-path sendmail=/usr/sbin/sendmail --bin-path hostname=/bin/hostname \
+	    --bin-path par2=/usr/bin/par2 --bin-path gzip=/bin/gzip --bin-path bzip2=/bin/bzip2
+	    
+	pod2man --section=8 --center="BackupPC manual" doc/BackupPC.pod backuppc.8
+	perl -e "s/.IX Title.*/.SH NAME\nbackuppc \\- BackupPC manual/g" -p -i.tmp backuppc.8
+	mv -f debian/backuppc/usr/share/backuppc/cgi-bin/* debian/backuppc/usr/share/backuppc/lib/realindex.cgi
+	install --mode=755 index.cgi debian/backuppc/usr/lib/backuppc/cgi-bin
+	install --mode=644 conf/hosts debian/backuppc/etc/backuppc
+	install --mode=644 debian/localhost.pl debian/backuppc/etc/backuppc
+	install --mode=644 debian/apache.conf debian/backuppc/etc/backuppc
+	-rmdir debian/backuppc/var/lib/backuppc/conf/
+	(cd debian/backuppc/usr/share/backuppc/cgi-bin; ln -s ../image; ln -s /usr/lib/backuppc/cgi-bin/index.cgi )
+	patch --no-backup-if-mismatch -p0 < debian/config.pl.diff
+	install --mode=644 debian/backuppc/etc/backuppc/config.pl debian/backuppc/usr/share/backuppc/conf
+	rm -rf debian/backuppc/etc/backuppc/config.pl
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+#	dh_installdebconf	
+	dh_installdocs 
+	dh_installexamples debian/examples/*
+	mv -f debian/backuppc/usr/share/backuppc/doc/* debian/backuppc/usr/share/doc/backuppc/
+	dh_installmenu
+	dh_installinit
+	dh_installcron
+	dh_installman backuppc.8
+	dh_installinfo
+#	dh_undocumented
+	dh_installchangelogs ChangeLog
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdebconf
+#	dh_makeshlibs
+	dh_installdeb
+	dh_perl $(CURDIR)/debian/backuppc/usr/share/backuppc/lib/
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

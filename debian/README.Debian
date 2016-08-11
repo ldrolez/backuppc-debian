@@ -1,0 +1,119 @@
+BackupPC for Debian
+-------------------
+
+The Web interface is available at http://myserver/backuppc/. Log in a user
+backuppc with the random password given during installation. 
+You can change the password by running "htpasswd for /etc/backuppc/htpasswd".
+
+The default install will backup the local /etc directory using the 'backuppc'
+user, so it will not backup root only files like /etc/shadow. If you want
+to do a local backup as root, you need to use ssh and ssh authentication keys,
+as explained in the manual. The examples/ directory contains some basic host
+configuration files.
+
+If you do not like the default data directory (/var/lib/backuppc/), you
+should move this directory where you want and make a symbolic link from
+the new directory to the default one (all paths are hardcoded so it's the
+easiest way to change the data directory).
+
+About Xfer methods
+------------------
+
+The default install of backuppc is only useful for backuping PCs via SMB.
+For other backup methods you'll probably have to install more packages:
+- for rsync: rsync, libfile-rsyncp-perl
+- for tar/ssh: ssh
+
+Known bugs with workarounds
+---------------------------
+
+- If SMB backups no longer work after an upgrade to lenny, please remove
+  the '-N' smbclient options from /etc/backuppc/config.pl
+  
+- Do no use the '--exclude' option for rsync backups but only the 
+  $Conf{BackupFilesExclude} backuppc parameter.
+
+- For IPv6 only hosts, add the following lines to the host configuration file:
+
+    $Conf{NmbLookupCmd} = '';
+    $Conf{NmbLookupFindHostCmd} = '';
+    $Conf{PingCmd} = '/bin/ping6';
+
+Installing BackupPC with Apache 2.2.x
+-------------------------------------
+
+The following lines should be added to your Apache configuration or to the top
+of /etc/backuppc/apache.conf, to make the authentication work.
+
+LoadModule auth_basic_module /usr/lib/apache2/modules/mod_auth_basic.so                     
+LoadModule authz_groupfile_module /usr/lib/apache2/modules/mod_authz_groupfile.so
+LoadModule authn_file_module /usr/lib/apache2/modules/mod_authn_file.so
+LoadModule authz_user_module /usr/lib/apache2/modules/mod_authz_user.so             
+LoadModule cgi_module /usr/lib/apache2/modules/mod_cgi.so                                   
+
+Installing the CGI under suexec+apache2 (contributed by William McKee)
+----------------------------------------------------------------------
+
+To enable suexec, you'll probably need to recompile Apache2:
+
+      apt-get source apache2
+      apt-get build-dep apache2
+      cd apache2_2.0.54
+      edit debian/rules and change the --suexec-docroot to /
+      dpkg-buildpackage -rfakeroot -b
+      dpkg -i ../apache2_2.0.54-4_i386.deb
+      dpkg -i ../apache2-common_2.0.54-4_i386.deb
+      dpkg -i ../apache2-utils_2.0.54-4_i386.deb
+      dpkg -i ../apache2-mpm-prefork_2.0.54-4_i386.deb
+
+Disable sgid on index.cgi:
+
+  chmod u-s /usr/share/backuppc/cgi-bin/index.cgi
+
+Fix permissions on cgi-bin:
+
+  chown backuppc:backuppc /usr/share/backuppc/cgi-bin
+
+Modify /etc/backuppc/apache.conf:
+
+<VirtualHost *>
+  ServerName backuppc
+  SuexecUserGroup backuppc backuppc
+  DocumentRoot /usr/share/backuppc/cgi-bin
+
+  Alias /backuppc /usr/share/backuppc/cgi-bin
+  <Directory /usr/share/backuppc/cgi-bin>
+    AllowOverride None
+    Options ExecCGI MultiViews Indexes
+    SymLinksIfOwnerMatch IncludesNoExec
+    DirectoryIndex index.cgi
+    AddHandler cgi-script .cgi
+
+    AuthType Basic
+    AuthUserFile /etc/backuppc/htpasswd
+    AuthName "BackupPC admin"
+    require valid-user
+  </Directory>
+</VirtualHost>
+
+
+Debian Modifications
+--------------------
+
+- Modified Perl scripts for having main config files (hosts and config.pl)
+in /etc/backuppc.
+- Data directory is /var/lib/backuppc/
+
+
+/etc/default/backuppc
+---------------------
+
+You can change the nice value by adding a line like 'NICE=10' to 
+/etc/default/backuppc
+
+
+
+
+
+
+ -- Ludovic Drolez <ldrolez@debian.org>, Mon, 16 Jun 2004 10:43:48 +0200

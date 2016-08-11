@@ -1,0 +1,82 @@
+# Translation of backuppc debconf templates to Polish.
+# Copyright (C) 2012
+# This file is distributed under the same license as the backuppc package.
+#
+# Michał Kułach <michal.kulach@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: backuppc\n"
+"Report-Msgid-Bugs-To: backuppc@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-20 08:53+0200\n"
+"PO-Revision-Date: 2012-05-30 19:41+0200\n"
+"Last-Translator: Michał Kułach <michal.kulach@gmail.com>\n"
+"Language-Team: Polish <debian-l10n-polish@lists.debian.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid "Web administration default user created"
+msgstr "Utworzono domyślnego użytkownika administrującego WWW"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"BackupPC can be managed through its web interface:\n"
+" http://${site}/backuppc/"
+msgstr ""
+"BackupPC może być zarządzany za pomocą swego interfejsu WWW:\n"
+" http://${site}/backuppc/"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"For that purpose, a web user named 'backuppc' with '${pass}' as password has "
+"been created. You can change this password by running 'htpasswd /etc/"
+"backuppc/htpasswd backuppc'."
+msgstr ""
+"W tym celu utworzono użytkownika www o nazwie \"backuppc\" i haśle ${pass}. "
+"Hasło można zmienić za pomocą polecenia \"htpasswd /etc/"
+"backuppc/htpasswd backuppc\"."
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid "Which web server would you like to reconfigure automatically:"
+msgstr "Który serwer WWW ponownie skonfigurować w sposób automatyczny?"
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid ""
+"BackupPC supports any web server with CGI enabled, but this automatic "
+"configuration process only supports Apache."
+msgstr ""
+"BackupPC obsługuje dowolny serwer WWW z włączonym CGI, ale automatyczny "
+"proces konfiguracyjny jest dostępny tylko dla Apache'a."
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid "Do you want to restart the webservers now if needed?"
+msgstr "Czy zrestartować teraz serwery WWW, jeśli to konieczne?"
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid ""
+"Remember that in order to activate the new configuration the webservers have "
+"to be restarted."
+msgstr ""
+"Proszę pamiętać, że w celu aktywowania nowej konfiguracji, konieczne jest "
+"zrestartowanie serwera (serwerów) WWW."
+
+

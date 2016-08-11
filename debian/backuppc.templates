@@ -1,0 +1,30 @@
+Template: backuppc/configuration-note
+Type: note
+_Description: Web administration default user created
+ BackupPC can be managed through its web interface:
+  http://${site}/backuppc/
+ .
+ For that purpose, a web user named 'backuppc' with '${pass}' as password
+ has been created. You can change this password by
+ running 'htpasswd /etc/backuppc/htpasswd backuppc'.
+
+Template: backuppc/reconfigure-webserver
+Type: multiselect
+Choices: apache2
+Default: apache2
+_Description: Which web server would you like to reconfigure automatically:
+ BackupPC supports any web server with CGI enabled, but this automatic
+ configuration process only supports Apache.
+
+Template: backuppc/restart-webserver
+Type: boolean
+Default: true
+_Description: Do you want to restart the webservers now if needed?
+ Remember that in order to activate the new configuration
+ the webservers have to be restarted.
+
+Template: backuppc/tmppass
+Type: password
+Description: Temporary password for internal use
+ Temporary password. Should not be translated.
+

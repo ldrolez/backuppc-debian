@@ -1,0 +1,96 @@
+#! /bin/sh
+# /etc/init.d/backuppc
+#
+# BackupPC Debian init script
+#
+### BEGIN INIT INFO
+# Provides:          backuppc
+# Required-Start:    $syslog $network $remote_fs
+# Required-Stop:     $syslog $network $remote_fs
+# Should-Start:      $local_fs autofs
+# Should-Stop:       $local_fs autofs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Launch backuppc server
+# Description:       Launch backuppc server, a high-performance, 
+#		     enterprise-grade system for backing up PCs.
+### END INIT INFO
+
+set -e
+
+# Do not change the values below ! Read /usr/share/doc/backuppc/README.Debian !
+BINDIR=/usr/share/backuppc/bin
+DATADIR=/var/lib/backuppc
+USER=backuppc
+NICE=0
+
+test -f /etc/default/backuppc && . /etc/default/backuppc
+
+#
+NAME=backuppc
+DAEMON=BackupPC
+
+test -x $BINDIR/$DAEMON || exit 0
+. /lib/lsb/init-functions
+[ -r /etc/default/rcS ] && . /etc/default/rcS
+
+if [ ! -d /var/run/backuppc ]; then
+    mkdir /var/run/backuppc
+    chown backuppc:backuppc /var/run/backuppc
+fi
+
+# Check for incompatible old config files
+check_old_config()
+{
+    BAD=0
+    CONF=/etc/backuppc/config.pl
+    
+    grep -q IncrLevel $CONF || BAD=1
+    
+    if [ "$BAD" = "1" ]; then
+	echo "BackupPC cannot be started because important parameters are missing from config.pl."
+	echo "If you just upgraded BackupPC, please update /etc/backuppc/config.pl."
+	exit 1
+    fi
+}
+
+
+case "$1" in
+  start)
+    log_begin_msg "Starting $NAME..."
+    check_old_config
+    start-stop-daemon --start --pidfile /var/run/backuppc/BackupPC.pid \
+			    --nicelevel $NICE -c $USER --exec $BINDIR/$DAEMON -- -d
+    log_end_msg $?
+    ;;
+  stop)
+    log_begin_msg "Stopping $NAME..."
+    start-stop-daemon --stop --pidfile /var/run/backuppc/BackupPC.pid -u $USER \
+			    --oknodo --retry 30
+    log_end_msg $?
+      ;;
+  restart)
+    log_begin_msg "Restarting $NAME..."
+    start-stop-daemon --stop --pidfile /var/run/backuppc/BackupPC.pid -u $USER \
+			    --oknodo --retry 30
+    check_old_config
+    start-stop-daemon --start --pidfile /var/run/backuppc/BackupPC.pid \
+			    --nicelevel $NICE -c $USER --exec $BINDIR/$DAEMON -- -d
+    log_end_msg $?
+    ;;
+  reload|force-reload)
+    log_begin_msg "Reloading $NAME configuration files..."
+    start-stop-daemon --stop --pidfile /var/run/backuppc/BackupPC.pid \
+			    --signal 1
+    log_end_msg $?
+    ;;
+  status)
+    status_of_proc "$BINDIR/$DAEMON" "$NAME" && exit 0 || exit $?
+    ;;
+  *)
+    log_success_msg "Usage: /etc/init.d/$NAME {start|stop|restart|reload|status}"
+    exit 1
+    ;;
+esac
+
+exit 0

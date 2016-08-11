@@ -1,0 +1,78 @@
+# Vietnamese Translation for Backuppc.
+# Copyright © 2009 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: backuppc 3.1.0-3.1\n"
+"Report-Msgid-Bugs-To: backuppc@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-20 08:53+0200\n"
+"PO-Revision-Date: 2009-01-31 16:55+1030\n"
+"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.8\n"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid "Web administration default user created"
+msgstr "Người dùng mặc định để quản trị Web đã được tạo"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"BackupPC can be managed through its web interface:\n"
+" http://${site}/backuppc/"
+msgstr ""
+"BackupPC có thể được quản lý thông qua giao diện Web:\n"
+" http://${site}/backuppc/"
+
+#. Type: note
+#. Description
+#: ../backuppc.templates:1001
+msgid ""
+"For that purpose, a web user named 'backuppc' with '${pass}' as password has "
+"been created. You can change this password by running 'htpasswd /etc/"
+"backuppc/htpasswd backuppc'."
+msgstr ""
+"Cho mục đích đó, một tên người dùng Web tên « backuppc » với mật khẩu « "
+"${pass} » đã được tạo. Bạn cũng có khả năng thay đổi mật khẩu này bằng cách "
+"chạy câu lệnh « htpasswd /etc/backuppc/htpasswd backuppc »."
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid "Which web server would you like to reconfigure automatically:"
+msgstr "Bạn có muốn tự động cấu hình trình phục vụ Web nào :"
+
+#. Type: multiselect
+#. Description
+#: ../backuppc.templates:2001
+msgid ""
+"BackupPC supports any web server with CGI enabled, but this automatic "
+"configuration process only supports Apache."
+msgstr ""
+"Phần mềm BackupPC hỗ trợ bất cứ trình phục vụ Web nào cũng hiệu lực CGI, "
+"nhưng mà tiến trình tự động cấu hình chỉ hỗ trợ Apache."
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid "Do you want to restart the webservers now if needed?"
+msgstr "Bạn có muốn khởi chạy lại các trình phục vụ Web (nếu yêu cầu) không?"
+
+#. Type: boolean
+#. Description
+#: ../backuppc.templates:3001
+msgid ""
+"Remember that in order to activate the new configuration the webservers have "
+"to be restarted."
+msgstr ""
+"Ghi nhớ rằng để kích hoạt cấu hình mới, các trình phục vụ Web cần phải được "
+"khởi chạy lại."

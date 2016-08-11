@@ -1,0 +1,5 @@
+etc/init.d
+etc/backuppc
+usr/share/backuppc/image
+usr/share/backuppc/conf
+usr/lib/backuppc/cgi-bin

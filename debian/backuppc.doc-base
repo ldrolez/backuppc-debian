@@ -1,0 +1,9 @@
+Document: backuppc
+Title: BackupPC Manual
+Author: Craig Baratt
+Abstract: BackupPC user and administrator's manual
+Section: File Management
+
+Format: HTML
+Index: /usr/share/doc/backuppc/BackupPC.html
+Files: /usr/share/doc/backuppc/*.html
