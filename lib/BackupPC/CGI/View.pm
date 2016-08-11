@@ -136,6 +136,10 @@ sub action
 		    }
 		    $s =~ s/[\n\r]+//g;
 		    if ( $s =~ /smb: \\>/
+			    || $s =~ /^tar:\d+\s/
+			    || $s =~ /^  NTLMSSP_/
+			    || $s =~ /^GENSEC backend /
+			    || $s =~ /^doing parameter /
 			    || $s =~ /^\s*(\d+) \(\s*\d+\.\d kb\/s\) (.*)$/
 			    || $s =~ /^tar: dumped \d+ files/
 			    || $s =~ /^\s*added interface/i
