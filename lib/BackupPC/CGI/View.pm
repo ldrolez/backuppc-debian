@@ -10,7 +10,7 @@
 #   Craig Barratt  <cbarratt@users.sourceforge.net>
 #
 # COPYRIGHT
-#   Copyright (C) 2003-2013  Craig Barratt
+#   Copyright (C) 2003-2015  Craig Barratt
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 #
 #========================================================================
 #
-# Version 3.3.0, released 14 Apr 2013.
+# Version 3.3.1, released 11 Jan 2015.
 #
 # See http://backuppc.sourceforge.net.
 #
@@ -136,10 +136,6 @@ sub action
 		    }
 		    $s =~ s/[\n\r]+//g;
 		    if ( $s =~ /smb: \\>/
-			    || $s =~ /^tar:\d+\s/
-			    || $s =~ /^  NTLMSSP_/
-			    || $s =~ /^GENSEC backend /
-			    || $s =~ /^doing parameter /
 			    || $s =~ /^\s*(\d+) \(\s*\d+\.\d kb\/s\) (.*)$/
 			    || $s =~ /^tar: dumped \d+ files/
 			    || $s =~ /^\s*added interface/i

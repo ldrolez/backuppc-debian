@@ -111,7 +111,8 @@ in /etc/backuppc.
 You can change the nice value by adding a line like 'NICE=10' to 
 /etc/default/backuppc
 
-
+You can change the ionice value by adding a line like 'IONICE=idle'
+to /etc/default/backuppc
 
 
 

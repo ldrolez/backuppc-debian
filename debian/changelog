@@ -1,12 +1,10 @@
-backuppc (3.3.0-2+deb8u1) jessie; urgency=medium
+backuppc (3.3.1-1) unstable; urgency=low
 
-  * Regexps fix for smbclient >= 4.2 to avoid failing SMB backups
-    and set $Conf{BackupZeroFilesIsFatal} = 0 in the default config.pl.
-    Workaround for SMB restores: '-d' 5 is now the default for smbclient.
-    Added some cleanup regexps for SMB backup logs.
-    Closes: #820963
+  * New upstream release
+  * Now depends on libtime-parsedate-perl. Closes: #749879
+  * Added support for IONICE in startup script. Closes: #772149
 
- -- Ludovic Drolez <ldrolez@debian.org>  Mon, 23 May 2016 6:05:17 +0200
+ -- Ludovic Drolez <ldrolez@debian.org>  Mon, 10 Aug 2015 18:10:59 +0200
 
 backuppc (3.3.0-2) unstable; urgency=low
 

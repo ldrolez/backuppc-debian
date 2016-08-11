@@ -11,7 +11,7 @@
 #   Craig Barratt  <cbarratt@users.sourceforge.net>
 #
 # COPYRIGHT
-#   Copyright (C) 2001-2013  Craig Barratt
+#   Copyright (C) 2001-2015  Craig Barratt
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 #
 #========================================================================
 #
-# Version 3.3.0, released 14 Apr 2013.
+# Version 3.3.1, released 11 Jan 2015.
 #
 # See http://backuppc.sourceforge.net.
 #
@@ -217,7 +217,7 @@ sub readOutput
         # This section is highly dependent on the version of smbclient.
         # If you upgrade Samba, make sure that these regexp are still valid.
         #
-        if ( /^\s*(-?\d+) \(\s*\d+[.,]\d kb\/s\) (.*)$/ || /^tar:(\d+)\s+\+\+\+ (.*)$/ ) {
+        if ( /^\s*(-?\d+) \(\s*\d+[.,]\d kb\/s\) (.*)$/ ) {
             my $sambaFileSize = $1;
             my $pcFileName    = $2;
             (my $fileName = $pcFileName) =~ s/\\/\//g;
@@ -230,9 +230,7 @@ sub readOutput
             $t->{byteCnt} += $2;
             $t->{fileCnt}++;
             $t->{XferLOG}->write(\"$_\n") if ( $t->{logLevel} >= 1 );
-        } elsif ( /^\s*tar: dumped \d+ files/
-                    || /Total bytes received: \d+/i 
-		    || /tar_process done, err = 0/ ) {
+        } elsif ( /^\s*tar: dumped \d+ files/ ) {
             $t->{xferOK} = 1;
             $t->{XferLOG}->write(\"$_\n") if ( $t->{logLevel} >= 0 );
         } elsif ( /^\s*tar: restored \d+ files/ ) {
@@ -272,10 +270,6 @@ sub readOutput
         } elsif ( /^\s*directory \\/i ) {
             $t->{XferLOG}->write(\"$_\n") if ( $t->{logLevel} >= 2 );
         } elsif ( /smb: \\>/
-		|| /^tar:\d+\s/
-		|| /^  NTLMSSP_/
-		|| /^GENSEC backend /
-                || /^doing parameter /
                 || /^\s*added interface/i
                 || /^\s*tarmode is now/i
                 || /^\s*Total bytes written/i

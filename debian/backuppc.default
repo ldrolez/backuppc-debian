@@ -1,2 +1,4 @@
 # Nice BackupPC daemon value
 NICE=0
+# IO Scheduling BackupPC daemon
+# IONICE=idle

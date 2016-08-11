@@ -23,6 +23,7 @@ BINDIR=/usr/share/backuppc/bin
 DATADIR=/var/lib/backuppc
 USER=backuppc
 NICE=0
+IONICE=best-effort
 
 test -f /etc/default/backuppc && . /etc/default/backuppc
 
@@ -60,7 +61,7 @@ case "$1" in
     log_begin_msg "Starting $NAME..."
     check_old_config
     start-stop-daemon --start --pidfile /var/run/backuppc/BackupPC.pid \
-			    --nicelevel $NICE -c $USER --exec $BINDIR/$DAEMON -- -d
+			    --nicelevel $NICE --iosched $IONICE -c $USER --exec $BINDIR/$DAEMON -- -d
     log_end_msg $?
     ;;
   stop)
@@ -75,7 +76,7 @@ case "$1" in
 			    --oknodo --retry 30
     check_old_config
     start-stop-daemon --start --pidfile /var/run/backuppc/BackupPC.pid \
-			    --nicelevel $NICE -c $USER --exec $BINDIR/$DAEMON -- -d
+			    --nicelevel $NICE --iosched $IONICE -c $USER --exec $BINDIR/$DAEMON -- -d
     log_end_msg $?
     ;;
   reload|force-reload)

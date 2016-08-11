@@ -3,11 +3,11 @@ Section: utils
 Priority: optional
 Maintainer: Ludovic Drolez <ldrolez@debian.org>
 Build-Depends: debhelper (>= 5), par2, perl (>= 5.6.0), patch
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 
 Package: backuppc
 Architecture: any
-Depends: ${shlibs:Depends}, ${perl:Depends}, libdigest-md5-perl, libcompress-zlib-perl, libarchive-zip-perl, tar (>> 1.13), adduser (>=3.9), dpkg (>= 1.15.7.2), apache2 | httpd, ${misc:Depends}, smbclient, samba-common-bin, bzip2, default-mta | exim4 | mail-transport-agent, iputils-ping | inetutils-ping, ucf, libtime-modules-perl, libwww-perl, apache2-utils
+Depends: ${shlibs:Depends}, ${perl:Depends}, libdigest-md5-perl,  libio-compress-perl | libcompress-zlib-perl, libarchive-zip-perl, tar (>> 1.13), adduser (>=3.9), dpkg (>= 1.15.7.2), apache2 | httpd, ${misc:Depends}, smbclient, samba-common-bin, bzip2, default-mta | exim4 | mail-transport-agent, iputils-ping | inetutils-ping, ucf, libtime-parsedate-perl, libwww-perl, apache2-utils
 Recommends: rsync, libfile-rsyncp-perl (>= 0.68), openssh-client | ssh-client, rrdtool, libio-dirent-perl
 Suggests: w3m | www-browser, par2
 Conflicts: libfile-rsyncp-perl (<< 0.68)
