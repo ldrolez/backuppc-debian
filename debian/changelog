@@ -1,3 +1,11 @@
+backuppc (3.3.1-2) unstable; urgency=medium
+
+  * Perl 5.22 fix. Closes: #809626
+  * Only remove /etc/backuppc/config.pl on purge. Closes: #800001
+  * Added BackupPC_deleteFile. Closes: #806671
+
+ -- Ludovic Drolez <ldrolez@debian.org>  Tue, 05 Jan 2016 20:48:20 +0100
+
 backuppc (3.3.1-1) unstable; urgency=low
 
   * New upstream release

@@ -50,7 +50,7 @@ clean:
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 	# Add here commands to install the package into debian/backuppc.
@@ -70,6 +70,7 @@ install: build
 	perl -e "s/.IX Title.*/.SH NAME\nbackuppc \\- BackupPC manual/g" -p -i.tmp backuppc.8
 	mv -f debian/backuppc/usr/share/backuppc/cgi-bin/* debian/backuppc/usr/share/backuppc/lib/realindex.cgi
 	install --mode=755 index.cgi debian/backuppc/usr/lib/backuppc/cgi-bin
+	install --mode=755 debian/BackupPC_deleteFile debian/backuppc/usr/share/backuppc/bin
 	install --mode=644 conf/hosts debian/backuppc/etc/backuppc
 	install --mode=644 debian/localhost.pl debian/backuppc/etc/backuppc
 	install --mode=644 debian/apache.conf debian/backuppc/etc/backuppc

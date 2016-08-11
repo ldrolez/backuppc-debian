@@ -65,7 +65,7 @@ case "$1" in
 
 	dpkg-statoverride --remove --force /usr/share/backuppc/cgi-bin/index.cgi
 	dpkg-statoverride --remove --force /usr/lib/backuppc/cgi-bin/index.cgi
-	rm -rf /etc/backuppc
+	rm -f /etc/backuppc/config.pl
 	if [ -x "/usr/bin/ucf" ]; then
 		ucf --purge /etc/backuppc/config.pl
 	fi
